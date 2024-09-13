@@ -1,5 +1,6 @@
 <?php
-session_start(); 
+session_start();
+require_once('includes/config.php'); 
 $_SESSION = array();
 if (ini_get("session.use_cookies")) {
     $params = session_get_cookie_params();
@@ -8,9 +9,11 @@ if (ini_get("session.use_cookies")) {
         $params["secure"], $params["httponly"]
     );
 }
+$ret="truncate table overdue";
+$query= $dbh -> prepare($ret);
+$query-> execute();
 unset($_SESSION['login']);
-unset($_SESSION['thread1']);
 session_destroy(); // destroy session
-header("location:index.php"); 
+header("location:../adminlogin.php"); 
 ?>
 
